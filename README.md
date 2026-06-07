@@ -60,16 +60,3 @@ python vens_transformer.py
 4. Click "Convert"
 5. Output saved as `*_vens.*` next to the input file
 
-## Conversion Modes
-
-- **VENS-A**: Vietnamese-style diacritics on vowel letters (no stress marks)
-- **VENS-B**: VENS-A plus stress marks below letters:
-  - Primary stress: U+0331 (single underline)
-  - Secondary stress: U+0333 (double underline)
-  - Silent letters: U+0330 (tilde below)
-
-## Case Preservation
-
-- `THE` -> `THẾ` (uppercase preserved)
-- `The` -> `Thế` (title case preserved)
-- `the` -> `thế` (lowercase preserved)
