@@ -1,8 +1,32 @@
 
- 
+## 例文:
+
+### 模式1:
+
+Wế were ín clẫss whén thế head-master cāme ín, fồllowed bȳ ā “new fẽllow,” nồt weãríng thế school ūnịfổrm, ẫnd ā school servạnt cãrrÿíng ā lầrge dẽsk. Thōse whö hẫd béen ạslếep wōke ùp, ẫnd ẽverÿ one rōse ãs íf jụst sụrprīsed ẫt hís work.
+
+Thế head-master māde ā sīgn tọ ūs tọ sít down. Thẽn, turníng tọ thế class-master, hế said tọ hím ín ā low voice—
+
+“Monsïeur Rồger, hếre ís ā pūpịl whöm Ī rẽcọmmẽnd tọ yoŭr cãre; hế’ll bế ín thế sẽcọnd. Íf hís work ẫnd cồndùct are sẫtísfẫctorÿ, hế wịll gō íntọ one òf thế ùpper clẫssés, ãs bécòmes hís āge.”
+
+### 模式2: 不发音字母下面加波浪.
+
+Wế werḛ ín clẫss wh̰én thế head-master cāmḛ ín, fồllowḛd bȳ ā “nḛw fẽllow,” nồt wḛãríng thế sch̰ool ūnịfổrm, ẫnd ā sch̰ool servạnt cãrr̰ÿíng ā lầrgḛ dẽsk. Thōsḛ whö hẫd béḛn ạslếḛp wōkḛ ùp, ẫnd ẽvḛrÿ onḛ rōsḛ ãs íf jụst sụr̰prīsḛd ẫt hís work.
+
+Thế head-master mādḛ ā sīg̰n tọ ūs tọ sít down. Thẽn, turníng tọ thế class-master, hế said tọ h̰ím ín ā low voicḛ—
+
+“Monsïḛur Rồger, hếrḛ ís ā pūpịl whöm Ī rẽcọmmẽnd tọ yo̰ŭr cãrḛ; hế’ll bế ín thế sẽcọnd. Íf hís work ẫnd cồndùct arḛ sẫtísfẫctorÿ, hế wịll gō íntọ onḛ òf thế ùpper clẫssés, ãs bécòmḛs hís āgḛ.”
+
+### 模式3: 主重音加横,次重音加两横
+
+Wế̱ we̱rḛ í̱n clẫ̱ss wh̰é̱n thế head-master cā̱mḛ í̱n, fồ̱llowḛd bȳ̱ ā̱ “nḛw̱ fẽ̱llow,” nồ̱t wḛã̱ríng thế sch̰o̱ol ū̱nịfổ̳rm, ẫ̱nd ā̱ sch̰o̱ol se̱rvạnt cã̱rr̰ÿíng ā̱ lầ̱rgḛ dẽ̱sk. Thō̱sḛ whö̱ hẫ̱d béḛn ạslế̱ḛp wō̱kḛ ù̱p, ẫ̱nd ẽ̱vḛrÿ o̱nḛ rō̱sḛ ã̱s íf jụst sụr̰prī̱sḛd ẫ̱t hís wo̱rk.
+
+Thế head-master mā̱dḛ ā̱ sī̱g̰n tọ ū̳s̱ tọ sí̱t do̱wn. Thẽ̱n, tu̱rníng tọ thế class-master, hế̱ sa̱id tọ h̰ím í̱n ā̱ lo̱w vo̱icḛ—
+
+“Monsïḛu̱r Rồ̱ger, hế̱rḛ ís ā̱ pū̱pịl whö̱m Ī̱ rẽ̳cọmmẽ̱nd tọ yo̰ŭ̱r cã̱rḛ; hế̱’ll bế í̱n thế sẽ̱cọnd. Íf hís wo̱rk ẫ̱nd cồndù̱ct arḛ sẫ̳tísfẫ̱ctorÿ, hế̱ wịll gō̱ íntọ o̱nḛ ò̱f thế ù̱pper clẫ̱ssés, ã̱s bécò̱mḛs hís ā̱gḛ.”
  
 
-### Vietnamese-style English Spelling  越南式英文正字法v2.1
+## Vietnamese-style English Spelling  越南式英文正字法v2.1
 
 
 | **组别**  | **长/紧音音标** | 双附加符号             | **短/松音音标** | 单个附加符号                |
@@ -14,7 +38,7 @@
 | **第五组** | /ɜː/       | ậ / ệ / ộ / ự     | /ə/        | ạ / ẹ / ị / ọ / ụ / ỵ |
 | **第六组** | /ɑː/       | ầ / ề / ồ / ừ     | /ʌ/        | à / è / ì / ò / ù / ỳ |
 
-## 注释:
+### 注释:
 
 1. 本正字法. 元音的发音完全通过附加符号表示, 字母不变, 保留英文单词的本身拼写. 这个正字法其实主要是辅助阅读, 如果书写使用, 我觉得用单符号的方式就差不多了.
     
@@ -26,18 +50,18 @@
     
 5. /ɒ/ 在美音不存在, 在美国英语, 部分发 /ɑː/, 部分发 /ɔː/, 比例大概是 1267:940.
 
-# VENS Transformer
+## VENS Transformer
 
 Convert English text documents to VENS (Vietnamese-Enhanced Notation System) orthography.
 
-## Requirements
+### Requirements
 
 - Python 3.8+
 - Standard library only (tkinter, zipfile, csv, re, etc.)
 - No pip installs needed
 
 
-## Files
+### Files
 
 ```
 vens_transformer/
@@ -48,7 +72,7 @@ vens_transformer/
   README.md
 ```
 
-## Usage
+### Usage
 
 ```bash
 python vens_transformer.py
