@@ -58,6 +58,42 @@ print(f'Loaded {len(LOOKUP)} word mappings')
 # =============================================================================
 # 2. Case-preserving word replacement
 # =============================================================================
+# 0. Cyrillic homoglyph → Latin normalization
+#    Many documents use Cyrillic letters that look identical to Latin ones
+#    (e.g. Cyrillic А looks like Latin A). Without normalization, these
+#    words won't match the English lookup table.
+# =============================================================================
+HOMOGLYPH_MAP = str.maketrans({
+    # Uppercase Cyrillic → Latin
+    'А': 'A',  # CYRILLIC CAPITAL A  U+0410
+    'В': 'B',  # CYRILLIC CAPITAL VE U+0412
+    'Е': 'E',  # CYRILLIC CAPITAL IE U+0415
+    'Н': 'H',  # CYRILLIC CAPITAL EN U+041D
+    'К': 'K',  # CYRILLIC CAPITAL KA U+041A
+    'М': 'M',  # CYRILLIC CAPITAL EM U+041C
+    'О': 'O',  # CYRILLIC CAPITAL O  U+041E
+    'Р': 'P',  # CYRILLIC CAPITAL ER U+0420
+    'С': 'C',  # CYRILLIC CAPITAL ES U+0421
+    'Т': 'T',  # CYRILLIC CAPITAL TE U+0422
+    'У': 'Y',  # CYRILLIC CAPITAL U  U+0423
+    'Х': 'X',  # CYRILLIC CAPITAL HA U+0425
+    # Lowercase Cyrillic → Latin
+    'а': 'a',  # U+0430
+    'е': 'e',  # U+0435
+    'о': 'o',  # U+043E
+    'р': 'p',  # U+0440
+    'с': 'c',  # U+0441
+    'у': 'y',  # U+0443
+    'х': 'x',  # U+0445
+    'і': 'i',  # U+0456
+    'ѕ': 's',  # U+0455
+})
+
+def normalize_homoglyphs(word):
+    """Convert Cyrillic lookalike letters to Latin for dictionary lookup."""
+    return word.translate(HOMOGLYPH_MAP)
+
+
 def apply_case(original, replacement):
     """Make replacement match the case pattern of original."""
     if not replacement:
@@ -68,23 +104,53 @@ def apply_case(original, replacement):
         return replacement[0].upper() + replacement[1:] if len(replacement) > 1 else replacement.upper()
     return replacement.lower()
 
+
 def transform_text(text, mode='a'):
     """
     Replace words with VENS equivalents. mode: 'a'=vens-a, 'b'=vens-b, 'c'=vens-c.
     Preserves HTML/MD tags via safe-zone approach.
+    Handles Cyrillic homoglyphs by normalizing them to Latin before lookup.
     """
     idx = 0 if mode == 'a' else (1 if mode == 'b' else 2)
 
     def replace_word(match):
         word = match.group(0)
-        key = word.lower()
+
+        # Split hyphenated compounds: "head-master" → "head" + "-" + "master"
+        if '-' in word:
+            parts = word.split('-')
+            converted = []
+            for part in parts:
+                if not part:
+                    converted.append('')
+                    continue
+                latin_part = normalize_homoglyphs(part)
+                key = latin_part.lower()
+                if key in LOOKUP:
+                    repl = LOOKUP[key][idx]
+                    converted.append(apply_case(latin_part, repl) if repl else part)
+                else:
+                    converted.append(part)
+            return '-'.join(converted)
+
+        # Single word
+        latin_word = normalize_homoglyphs(word)
+        key = latin_word.lower()
         if key in LOOKUP:
             repl = LOOKUP[key][idx]
             if repl:
-                return apply_case(word, repl)
+                return apply_case(latin_word, repl)
         return word
 
-    WORD_PATTERN = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)?(?:-[A-Za-z]+)?")
+    # Match Latin letters AND Cyrillic homoglyph letters
+    WORD_PATTERN = re.compile(
+        r"[A-Za-zАВЕНКМОРСТУХ"
+        r"аеорсухіѕ]+"
+        r"(?:'[A-Za-zАВЕНКМОРСТУХ"
+        r"аеорсухіѕ]+)?"
+        r"(?:-[A-Za-zАВЕНКМОРСТУХ"
+        r"аеорсухіѕ]+)?"
+    )
 
     SAFE_PATTERNS = [
         (re.compile(r'<[^>]+>'), True),
